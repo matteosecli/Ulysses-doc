@@ -14,7 +14,7 @@ Why This Guide
 
 A survival guide to Ulysses is long due, so I've just decided to write one based on my experience as a user in these years.
 
-I still remember my first time on a cluster, on *this* cluster; no one ever explained me how to submit a job, why one should use a submission script, etc., so I spent the nights of an entire week trying to figure out all the bits and pieces to make some code work on the cluster (the fact that this code was highly complex and its usage had't explained as well certainly contributed a lot).
+I still remember my first time on a cluster, on *this* cluster; no one ever explained me how to submit a job, why one should use a submission script, etc., so I spent the nights of an entire week trying to figure out all the bits and pieces to make some code work on the cluster (the fact that this code was highly complex and its usage had't been explained as well certainly contributed a lot).
 
 I'm sure other people face the same situation I faced a few years ago when I first approached Ulysses; the best I can do is to offer back what I think I've learned.
 

@@ -10,7 +10,7 @@ Step 0: Get an Account
 
 If you have a SISSA email, you can enable your account to Ulysses by writing an email to helpdesk-hpc@sissa.it.
 
-If your name is *John Doe*, your email will probably look like :code:`jdoe@sissa.it`; in the following, you will need to replaced :code:`username` with your equivalent of :code:`jdoe`.
+If your name is *John Doe*, your email will probably look like :code:`jdoe@sissa.it`; in the following, you will need to replace :code:`username` with your equivalent of :code:`jdoe`.
 
 Step 1: Login
 -------------

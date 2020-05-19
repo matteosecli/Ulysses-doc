@@ -22,9 +22,9 @@ A (computing) cluster is just a bunch of computers, called **nodes**, wired toge
 
 .. _MPI: https://en.wikipedia.org/wiki/Message_Passing_Interface
 
-Long story short: if you have to run *a single or few* calculations that can fit to your workstation's computing capabilities, just *don't use a cluster*. You'd be better off just using your own workstation.
+Long story short: if you have to run *a single or few* calculations that can fit your workstation's computing capabilities, just *don't use a cluster*. You'd be better off just using your own workstation.
 
-.. note:: jobs that perform multi-core calculations are definitely implementing a form of parallelism, but if no communication is performed among different nodes then these jobs still fall under the category "serial job". The "parallel" here refers to the fact of communicating among different nodes
+.. note:: Jobs that perform multi-core calculations are definitely implementing a form of parallelism, but if no communication is performed among different nodes then these jobs still fall under the category "serial job". The "parallel" here refers to the fact of communicating among different nodes
 
 What's a Resource Manager?
 --------------------------
@@ -45,7 +45,7 @@ Imagine you want to have fun and you decide to have a trip to Gardaland (an Ital
 
    Queues at an amusement park.
 
-The park employee then makes sure that no one skips the queue, and assigns the visitors to the attraction's pods based on how people are grouped and on the available places. Let's say for example that a pod can host max. 6 people and that at the top of the queue there are a family of 5 people, another family of 3 people, and you (alone 😞). As an empty pod arrives, the queue manager let the 5-people family on; an empty place is left, but the next in line is the 3-people family and it doesn't fit. A not-so-effective queue manager could wait for the next empty pod and let the 3-people family and you on it, but this is both a waste of time and resources for the park (filling all the empty spots means more \$ for the park!) and for you, since you have to wait for the next pod despite the fact that the 5-people family left an empty spot on their pod. Instead, an effective queue manager would realize that you could fit in that empty spot and, despite you're not the next-in-line, would let you in. Or maybe the queue manager would let in a person even far behind you, because maybe that person has bought a *priority* ticket.
+The park employee then makes sure that no one skips the queue, and assigns the visitors to the attraction's pods based on how people are grouped and on the available places. Let's say for example that a pod can host max. 6 people and that at the top of the queue there are a family of 5 people, another family of 3 people, and you (alone 😞). As an empty pod arrives, the queue manager lets the 5-people family on; an empty place is left, but the next in line is the 3-people family and it doesn't fit. A not-so-effective queue manager could wait for the next empty pod and let the 3-people family and you on it, but this is both a waste of time and resources for the park (filling all the empty spots means more \$ for the park!) and for you, since you have to wait for the next pod despite the fact that the 5-people family left an empty spot on their pod. Instead, an effective queue manager would realize that you could fit in that empty spot and, despite you're not the next-in-line, would let you in. Or maybe the queue manager would let in a person even far behind you, because maybe that person has bought a *priority* ticket.
 
 That's how the resource manager in a cluster works, more or less. In order for your calculation to be executed, you have to:
 
