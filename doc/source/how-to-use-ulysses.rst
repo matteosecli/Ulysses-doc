@@ -542,7 +542,7 @@ Memory (RAM) resources. **Always specify the amount of RAM you need, otherwise y
 
       #SBATCH --mem=7900mb
       
-.. data:: [optional] --mem=<value>
+.. data:: [optional] --mem-per-cpu=<value>
 
    Amount of memory per CPU (thread). Refer to the table in :ref:`Partitions` for the limits.
    Incompatible with ``--mem``.
