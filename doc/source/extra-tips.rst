@@ -15,6 +15,8 @@ As an example, this command asks for 1 CPU on a node either in regular1 or in re
 .. code-block:: console
    
    $ srun --partition=regular1,regular2 --time=00:30:00 --ntasks=1 --cpus-per-task=1 --pty bash -i
+   
+:code:`srun` supports a set of options similar to :code:`sbatch`; for more info, refer to the manual page: https://slurm.schedmd.com/srun.html.
 
 Run Quick, High-Priority Jobs
 -----------------------------
