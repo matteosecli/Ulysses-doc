@@ -59,6 +59,7 @@ Explore Files in a User-Friendly Way
 You can read and write files on the cluster without necessarily using ``scp`` or ``sftp`` from the command line, so that you can navigate files as if they were on a normal folder on your computer.
 
 There are two main ways to do that:
+
 * by using the SFTP protocol though you system's native file browser
 * by using SSHFS
 
@@ -208,7 +209,7 @@ At this point you should see a device called "Ulysses SFTP Drive" in the left pa
 SSHFS -- MacOS
 ^^^^^^^^^^^^^^
 
-The steps for MacOS are similar to the ones outlined in :ref`SSHFS -- Linux` (have a read), with the notable exception that **you don't have to make the local folder**.
+The steps for MacOS are similar to the ones outlined in :ref:`SSHFS -- Linux` (have a read), with the notable exception that **you don't have to create the local folder**.
 
 To install SSHFS on MacOS, first install `HomeBrew <https://brew.sh>`. Then, fire up a terminal and execute
 
