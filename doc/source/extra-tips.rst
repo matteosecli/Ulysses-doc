@@ -218,15 +218,61 @@ To install SSHFS on MacOS, first install `HomeBrew <https://brew.sh>`_. Then, fi
 
 .. code-block:: console
 
-   $ brew install osxfuse
+   $ brew cask install osxfuse
    
+.. figure:: res/sshfs_macos_01.png
+   :width: 100%
+   :alt: sshfs_macos_01
+   :align: center
+
+Then reboot, open up a terminal again and install sshfs via:
+
+.. code-block:: console
+
+   $ brew install sshfs
+
+.. figure:: res/sshfs_macos_02.png
+   :width: 100%
+   :alt: sshfs_macos_02
+   :align: center
+
 You can finally mount Ulysses' storage, for example in :ref:``/Volumes/Ulysses\ SFTP\ Drive``, by executing in a terminal:
 
 .. code-block:: console
 
    $ sshfs username@frontend2.hpc.sissa.it:/ /Volumes/Ulysses\ SFTP\ Drive -o local -o volname="Ulysses SFTP Drive" -o auto_cache,reconnect,defer_permissions,noappledouble
 
+.. figure:: res/sshfs_macos_03.png
+   :width: 100%
+   :alt: sshfs_macos_03
+   :align: center
+
+.. note:: Answer ``yes`` to the fingerprint message and insert your password when asked.
+
 .. note:: In order to avoid repeating this command every time, you can put it in a Bash script and just execute the Bash script when you want to connect.
+
+The first time you use ``sshfs`` you might get a message like this one:
+
+.. figure:: res/sshfs_macos_04.png
+   :width: 67%
+   :alt: sshfs_macos_04
+   :align: center
+
+Just click on "Open System Preferences" to get to this screen
+
+.. figure:: res/sshfs_macos_05.png
+   :width: 100%
+   :alt: sshfs_macos_05
+   :align: center
+
+and then click on "Allow" at the bottom of the window. After you've done this, **repeat** the ``sshfs`` command again and you should be fine.
+
+You can find the drive on your desktop or on "My Computer":
+
+.. figure:: res/sshfs_macos_06.png
+   :width: 100%
+   :alt: sshfs_macos_06
+   :align: center
 
 .. note:: You can skip the manual navigation of the tree in a way similar to the "Ctrl + L" command described for Ubuntu. In MacOS, you have to use "Command + Maiusc + G" and insert the address (e.g. referring to the same example above) ``/Volumes/Ulysses SFTP Drive/home/username``.
 
