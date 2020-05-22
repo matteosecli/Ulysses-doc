@@ -48,6 +48,56 @@ If you want to **totally disable** Hyper-Threading, you can use
 .. code-block:: console
 
    $ sbatch --hint=nomultithread --cpu-bind=cores send_job.sh
+   
+Automatic Login
+---------------
+
+If you're on a **trusted computer**, you can avoid entering your password every time you login in Ulysses.
+
+First, generate an SSH keypair via:
+
+.. code-block:: console
+
+   $ ssh-keygen
+   
+Then, upload your credentials to Ulysses:
+
+.. code-block:: console
+
+   $ ssh-copy-id username@frontend2.hpc.sissa.it
+   
+You'll be asked for your password for the last time. 🙃
+
+You can further shorten the login procedure by opening (or creating) the file ``~/.ssh/config`` and adding the following lines (replace ``username`` with your SISSA username and ``sissacluster2`` with the name you prefer):
+
+.. code-block:: console
+
+   Host sissacluster2
+      User username
+      HostName frontend2.hpc.sissa.it
+      IdentityFile ~/.ssh/id_rsa
+      ServerAliveInterval 120
+      ServerAliveCountMax 60
+      
+Then, in order to login, you will just need
+
+.. code-block:: console
+
+   $ ssh sissacluster2
+   
+An even shorter way to login is then to open or create the file ``~/.bash_profile`` and, at the end, add the following line (replace ``cluster2`` with some name you like):
+
+.. code-block:: bash
+
+   alias cluster2='ssh sissacluster2'
+   
+At this point, logging in to Ulysses becomes a matter of executing the command
+
+.. code-block:: console
+
+   $ cluster2
+   
+in a terminal (you might need to close and reopen the terminal, first).
 
 Explore Files in a User-Friendly Way
 ------------------------------------

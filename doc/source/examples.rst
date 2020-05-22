@@ -216,7 +216,74 @@ This is the same example, but with an explicit setup to ask for 2 full nodes.
 Job Arrays
 ----------
 
-.. warning:: **WORK IN PROGRESS!**
+Job arrays are a handy way to send multiple jobs that vary e.g. just by some parameters of the calculation. SLURM's documentation has a very well-written page on job arrays, I suggest you to take a look for more details and examples: https://slurm.schedmd.com/job_array.html. Here I'll just show a couple of examples.
+
+A job array is specified via the :data:`--array=<value>` option (see :ref:`Partition, Walltime and Output`), that takes a range of integers as ``<value>``. This range can be specified as an interval, e.g. ``1-10`` (numbers from 1 to 10), or as a sequence, e.g. ``3,5,23``, or both, e.g. ``1-5,13`` (numbers from 1 to 5, then 13).
+
+For example, if one uses the option :data:`--array=1-5,13`, then SLURM will generate 6 different jobs, each of one containing the following environment variables:
+
+.. table::
+   :width: 100%
+   :widths: auto
+   
+   +-----------------------------+-----------------------------------------+
+   | Environment Variable        | Value                                   |
+   +=============================+=========================================+
+   | ``$SLURM_ARRAY_TASK_ID``    | One of the following: ``1,2,3,4,5,13``. |
+   +-----------------------------+-----------------------------------------+
+   | ``$SLURM_ARRAY_TASK_COUNT`` | ``6`` (number of jobs in the array)     |
+   +-----------------------------+-----------------------------------------+
+   | ``$SLURM_ARRAY_TASK_MAX``   | ``13`` (max of given range)             |
+   +-----------------------------+-----------------------------------------+
+   | ``$SLURM_ARRAY_TASK_MIN``   | ``1``  (min of given range)             |
+   +-----------------------------+-----------------------------------------+
+
+In other words, each of these 6 different jobs will have a variable ``$SLURM_ARRAY_TASK_ID`` containing one (and only one) of the numbers given to :data:`--array`. This variable can then be used to generate one or more parameters of the simulation, in a way that's completely up to you.
+
+.. note:: Array ranges can additionally be specified with a step. For example, to generate multiples of 3 up to 21, you can use :data:`--array=0-21:3`.
+
+.. note:: You can also specify a maximum number of jobs in that array that are allowed to run at the same time. For example, :data:`--array=1-20%4` generates 20 jobs but only 4 of them are allowed to run at the same time.
+
+Serial Job Array
+^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+   :caption: Serial job array asking for 2 threads (bounded to 1 physical core), 990 MB of memory and 6 hours for each of the 32 jobs, on ``regular2``. The output and error filenames are in TORQUE style.
+   :linenos:
+
+   #!/usr/bin/env bash
+   #
+   #SBATCH --job-name=Array_Job
+   #SBATCH --mail-type=ALL
+   #SBATCH --mail-user=jdoe@sissa.it
+   #
+   #SBATCH --ntasks=1
+   #SBATCH --cpus-per-task=2
+   #SBATCH --ntasks-per-core=1
+   #
+   #SBATCH --mem-per-cpu=990mb
+   #
+   #SBATCH --array=1-32
+   #SBATCH --partition=regular2
+   #SBATCH --time=06:00:00
+   #SBATCH --output=%x.o%A-%a
+   #SBATCH --error=%x.e%A-%a
+   #
+
+   ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Calculate the parameter of the calculation based on the array index,
+   # e.g. in this case as 5 times the array index
+   PARAM=$((${SLURM_ARRAY_TASK_ID}*5))
+   
+   # Run calculation
+   ./my_program.x $PARAM
+   
+.. note:: This workload is based on the specifics of the regular2 nodes. With these numbers you should be able to occupy even just a single node, if it's available; but hey, nonetheless you are running 32 calculations at the same time! 😄
 
 Dependencies
 ------------
