@@ -36,6 +36,13 @@ Typical situation for a serial (non-MPI) job. On a cluster without Hyper-Threadi
    #
 
    ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Run calculation
+   ./my_program.x
 
 Serial Job -- With OpenMP
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -64,6 +71,19 @@ If you are confident that your software implements OpenMP parallelism, you can a
    #
 
    ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Optionally set the number of OpenMP threads as you want
+   # Example:     export OMP_NUM_THREADS=$((${SLURM_CPUS_PER_TASK}/2))
+   
+   # Print info on current number of OpenMP threads
+   "Using "$(($OMP_NUM_THREADS))" OpenMP threads."
+   
+   # Run calculation
+   ./my_program.x
    
 .. note:: You can add the option ``#SBATCH --ntasks-per-core=1`` to make sure that 20 CPUs correspond to actual 10 physical cores.
    
@@ -98,6 +118,13 @@ This is an example of a pure MPI job. Again, we ask for 2 CPUs per task but we m
    #
 
    ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Run MPI calculation
+   mpirun -np $SLURM_NTASKS ./my_program.x
 
 MPI Job -- With OpenMP
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -126,6 +153,19 @@ This is an example of a mixed MPI/OpenMP job, with each MPI process having 8 thr
    #
    
    ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Optionally set the number of OpenMP threads as you want
+   # Example:     export OMP_NUM_THREADS=$((${SLURM_CPUS_PER_TASK}/2))
+   
+   # Print info on current number of OpenMP threads
+   "Using "$(($OMP_NUM_THREADS))" OpenMP threads."
+   
+   # Run MPI calculation
+   mpirun -np $SLURM_NTASKS ./my_program.x
    
 .. note:: You can add the option ``#SBATCH --ntasks-per-core=1`` to make sure that 8 CPUs correspond to actual 4 physical cores.
 
@@ -134,7 +174,7 @@ This is an example of a mixed MPI/OpenMP job, with each MPI process having 8 thr
 This is the same example, but with an explicit setup to ask for 2 full nodes.
 
 .. code-block:: bash
-   :caption: Parallel job asking for 16 MPI tasks distributed among 2 nodes, each task with 8 threads and 7.92 GB of memory for a total of 12 hours on ``regular2``. The output and error filenames are in TORQUE style.
+   :caption: Parallel job asking for 16 MPI tasks distributed among 2 nodes, each task with 8 (OpenMP) threads and 7.92 GB of memory for a total of 12 hours on ``regular2``. The output and error filenames are in TORQUE style.
    :linenos:
 
    #!/usr/bin/env bash
@@ -157,6 +197,19 @@ This is the same example, but with an explicit setup to ask for 2 full nodes.
    #
    
    ## YOUR CODE GOES HERE (load the modules and do the calculations)
+   ## Sample code:
+   
+   # Make sure it's the same module used at compile time
+   module load intel
+   
+   # Optionally set the number of OpenMP threads as you want
+   # Example:     export OMP_NUM_THREADS=$((${SLURM_CPUS_PER_TASK}/2))
+   
+   # Print info on current number of OpenMP threads
+   "Using "$(($OMP_NUM_THREADS))" OpenMP threads."
+   
+   # Run MPI calculation
+   mpirun -np $SLURM_NTASKS ./my_program.x
 
 .. note:: The option ``--mem=0`` is a shorthand for asking all the available memory on each node. The ``--exclusive`` option makes sure that the nodes are not shared among other running jobs (even if these particular settings already saturate all the 2 nodes).
 
