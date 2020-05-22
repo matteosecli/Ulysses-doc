@@ -223,7 +223,7 @@ A job array is specified via the :data:`--array=<value>` option (see :ref:`Parti
 For example, if one uses the option :data:`--array=1-5,13`, then SLURM will generate 6 different jobs, each of one containing the following environment variables:
 
 .. table::
-   :width: 100%
+   :align: center
    :widths: auto
    
    +-----------------------------+-----------------------------------------+
