@@ -274,13 +274,15 @@ You will be prompted with user/pass:
 
 and then you should be set! 😄
 
-The guide of SSHFS-Win has also a nice animation of the whole procedure (just be sure to use the correct SISSA address I've put above):
+.. only:: html or epub
 
-.. figure:: res/sshfs_windows_capture.gif
-   :width: 100%
-   :alt: sshfs_windows_capture
-   :align: center
-   
-   Animation taken from the `guide <https://github.com/billziss-gh/sshfs-win>`_ of SSHFS-Win.
+   The guide of SSHFS-Win has also a nice animation of the whole procedure (just be sure to use the correct SISSA address I've put above):
+
+   .. figure:: res/sshfs_windows_capture.gif
+      :width: 100%
+      :alt: sshfs_windows_capture
+      :align: center
+      
+      Animation taken from the `guide <https://github.com/billziss-gh/sshfs-win>`_ of SSHFS-Win.
 
 .. warning:: On Windows, folder paths use a ``\`` instead of the ``/`` used on Linux and MacOS!
