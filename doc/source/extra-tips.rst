@@ -1,8 +1,6 @@
 Extra Tips
 ==========
 
-.. warning:: **WORK IN PROGRESS!**
-
 Run Interactive Jobs
 --------------------
 
@@ -149,6 +147,11 @@ SFTP -- MacOS
 
 Finder does not natively support SFTP. You have to resort to a third-party solution or use SSHFS (see the section :ref:`SSHFS -- MacOS`).
 
+SFTP -- Windows
+^^^^^^^^^^^^^^^
+
+Windows Explorer does not natively support SFTP. You have to resort to a third-party solution or use SSHFS (see the section :ref:`SSHFS -- Windows`), though even SSHFS requires installing additional software.
+
 SSHFS -- Linux
 ^^^^^^^^^^^^^^
 
@@ -211,7 +214,7 @@ SSHFS -- MacOS
 
 The steps for MacOS are similar to the ones outlined in :ref:`SSHFS -- Linux` (have a read), with the notable exception that **you don't have to create the local folder**.
 
-To install SSHFS on MacOS, first install `HomeBrew <https://brew.sh>`. Then, fire up a terminal and execute
+To install SSHFS on MacOS, first install `HomeBrew <https://brew.sh>`_. Then, fire up a terminal and execute
 
 .. code-block:: console
 
@@ -240,3 +243,44 @@ Unmounting should work by just right-clicking on the drive and select "Eject", o
 .. code-block:: console
 
    $ -o modules=volicon,iconpath=/Users/YOURNAME/.local/share/icons/sissa_drive.icns
+
+SSHFS -- Windows
+^^^^^^^^^^^^^^^^
+
+To make SSHFS work in Windows, we need to install some third-party drivers. I've tested the open-source solution below and it seems to work fine on Windows 10.
+
+* First, install `WinFsp <https://github.com/billziss-gh/winfsp/releases/latest>`_. Keep all the default options.
+* Then, install the `SSHFS-Win <https://github.com/billziss-gh/sshfs-win/releases/latest>`_ as well. If you receive a warning about the computer being protected by Windows, click on "More info" and then on "Run anyway". Keep all the default options.
+
+At this point, open Windows File Explorer, right-click on "This PC" in the left panel and then "Map Network Drive". Choose a drive letter to map to Ulysses (I've chosen ``U:`` as "Ulysses" 🙃) and use the following address:
+
+.. code-block:: console
+
+   \\sshfs.r\username@frontend2.hpc.sissa.it
+
+where ``username`` is your SISSA username. You can choose whether to reconnect at sign-in or not.
+
+.. figure:: res/sshfs_windows_01.png
+   :width: 100%
+   :alt: sshfs_windows_01
+   :align: center
+
+You will be prompted with user/pass:
+
+.. figure:: res/sshfs_windows_02.png
+   :width: 67%
+   :alt: sshfs_windows_02
+   :align: center
+
+and then you should be set! 😄
+
+The guide of SSHFS-Win has also a nice animation of the whole procedure (just be sure to use the correct SISSA address I've put above):
+
+.. figure:: res/sshfs_windows_capture.gif
+   :width: 100%
+   :alt: sshfs_windows_capture
+   :align: center
+   
+   Animation taken from the `guide <https://github.com/billziss-gh/sshfs-win>`_ of SSHFS-Win.
+
+.. warning:: On Windows, folder paths use a ``\`` instead of the ``/`` used on Linux and MacOS!
