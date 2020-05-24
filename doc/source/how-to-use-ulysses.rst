@@ -238,6 +238,30 @@ In general, you ask yourself the following questions.
 
 * How much memory (RAM) do you need?
 * How much disk space do you need? Does it fit into your :code:`/scratch` quota?
+
+  * You can check your quota by using the ``quota`` command:
+  
+    .. code-block:: console
+     
+       $ quota
+            /home:   XXX of   198GB (hard limit =   200GB)
+         /scratch:  XXXX of  4950GB (hard limit =  5000GB)
+          
+  .. warning:: Please consider that your quota, particularly the ``/scratch`` one, is **purely theoretical**, as in reality there aren't 5 TB for everybody (at least until the storage is upgraded). The 5 TB limit is there so that people that need to perform calculations that store lots of data can do it, but then they should **move** this data elsewhere; the possibility to store large simulations should be considered **temporary**.
+      
+     In order to check the overall free space on ``/home`` and ``/scratch`` you can do:
+      
+     .. code-block:: console
+      
+        $ df -h /home /scratch
+        Filesystem                              Size  Used Avail Use% Mounted on
+        10.6.0.6@o2ib2:10.6.0.7@o2ib2:/home      43T  9,9T   33T  24% /home
+        10.6.0.6@o2ib2:10.6.0.7@o2ib2:/scratch  256T  247T  6,6T  98% /scratch
+         
+     As you see, when this command was executed there were **only 6.6 TB free** on ``/scratch``, which means that even if two users have their full 5 TB of quota on it, then cannot completely fill their scratch folder at the same time.
+      
+     **Take home message:** feel free to perform simulations that store large data, but then *please* try to move as much data as possible *away* from the cluster so that other users can perform their calculations as well.
+
 * How much time do you need?
 * Do you have to do a single calculation or multiple, similar calculations that vary just by a few parameters? If yes, how many of them?
 
