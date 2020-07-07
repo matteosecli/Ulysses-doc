@@ -30,7 +30,9 @@
 #
 # ---- Other resources configuration (e.g. GPU) ----
 #
-#[not configured yet] #SBATCH --gpus:2                     # GPUs per job. Handling of GPUs in this way is NOT CONFIGURED YET on Ulysses, so don't use it until it's enabled. 
+#[optional] #SBATCH --gpus=2                     # Total number of GPUs for the job (MAX: 2 x number of nodes, only available on gpu1 and gpu2)
+#[optional] #SBATCH --gpus-per-node=2            # Number of GPUs per node (MAX: 2, only available on gpu1 and gpu2)
+#[optional] #SBATCH --gpus-per-task=1            # Number of GPUs per MPI rank (MAX: 2, only available on gpu1 and gpu2); to be used with --ntasks
 #
 # ---- Memory configuration ----
 #

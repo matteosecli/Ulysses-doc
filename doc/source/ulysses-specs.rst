@@ -68,13 +68,13 @@ But let's take a closer look at the ID card of Ulysses.
   * Filesystem: Lustre 2.12.3
   * :code:`/home`:
 
-    * Total: 42.6 TiB (2 x OST with 21.3 TiB each)
+    * Total: 75.6 TiB (2 x OST with 37.8 TiB each)
 
     * User quota: **198 GiB (hard limit: 200 GiB)**
 
   * :code:`/scratch`:
 
-    * Total: 255.9 TiB (12 x OST with 21.3 TiB each)
+    * Total: 533.2 TiB (2 x OST with 266.6 TiB each)
 
     * User quota: **4950 GiB (hard limit: 5000 GiB)**
 
@@ -84,7 +84,7 @@ But let's take a closer look at the ID card of Ulysses.
 Partitions
 ----------
 
-The partitions (queues) are then organized as follows.
+The partitions (queues) are then organized as follows; note that you can get detailed information about a partition via the command :code:`scontrol show Partition=<name>`.
 
 .. table:: Max resources you can ask for each partition. (*): max 8 nodes. (**): max 24 nodes.
    :align: center

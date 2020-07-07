@@ -247,20 +247,16 @@ In general, you ask yourself the following questions.
             /home:   XXX of   198GB (hard limit =   200GB)
          /scratch:  XXXX of  4950GB (hard limit =  5000GB)
           
-  .. warning:: Please consider that your quota, particularly the ``/scratch`` one, is **purely theoretical**, as in reality there aren't 5 TB for everybody (at least until the storage is upgraded). The 5 TB limit is there so that people that need to perform calculations that store lots of data can do it, but then they should **move** this data elsewhere; the possibility to store large simulations should be considered **temporary**.
+    Please consider that your quota, particularly the ``/scratch`` one, is **purely theoretical**, as likely there aren't 5 TB for everybody; so you should also check the overall free space. The 5 TB limit is there so that people that need to perform calculations that store lots of data can do it, but then they should **move** this data elsewhere; the possibility to store large simulations should be considered **temporary**.
       
-     In order to check the overall free space on ``/home`` and ``/scratch`` you can do:
+    In order to check the overall free space on ``/home`` and ``/scratch`` you can do:
       
-     .. code-block:: console
+    .. code-block:: console
       
-        $ df -h /home /scratch
-        Filesystem                              Size  Used Avail Use% Mounted on
-        10.6.0.6@o2ib2:10.6.0.7@o2ib2:/home      43T  9,9T   33T  24% /home
-        10.6.0.6@o2ib2:10.6.0.7@o2ib2:/scratch  256T  247T  6,6T  98% /scratch
-         
-     As you see, when this command was executed there were **only 6.6 TB free** on ``/scratch``, which means that even if two users have their full 5 TB of quota on it, then cannot completely fill their scratch folder at the same time.
-      
-     **Take home message:** feel free to perform simulations that store large data, but then *please* try to move as much data as possible *away* from the cluster so that other users can perform their calculations as well.
+       $ df -h /home /scratch
+       Filesystem                              Size  Used Avail Use% Mounted on
+       10.7.0.43@o2ib,10.7.0.44@o2ib:/home2     76T   11T   65T  14% /home
+       10.7.0.43@o2ib,10.7.0.44@o2ib:/scrt2    534T  247T  287T  46% /scratch
 
 * How much time do you need?
 * Do you have to do a single calculation or multiple, similar calculations that vary just by a few parameters? If yes, how many of them?
@@ -320,7 +316,9 @@ You can also download a copy of the job script here: :download:`send_job.sh<res/
    #
    # ---- Other resources configuration (e.g. GPU) ----
    #
-   #[not configured yet] #SBATCH --gpus:2                     # GPUs per job. Handling of GPUs in this way is NOT CONFIGURED YET on Ulysses, so don't use it until it's enabled.
+   #[optional] #SBATCH --gpus=2                     # Total number of GPUs for the job (MAX: 2 x number of nodes, only available on gpu1 and gpu2)
+   #[optional] #SBATCH --gpus-per-node=2            # Number of GPUs per node (MAX: 2, only available on gpu1 and gpu2)
+   #[optional] #SBATCH --gpus-per-task=1            # Number of GPUs per MPI rank (MAX: 2, only available on gpu1 and gpu2); to be used with --ntasks
    #
    # ---- Memory configuration ----
    #
@@ -548,7 +546,35 @@ Other Resources Configuration
 
 Settings for other resources, such as GPUs.
 
-.. warning:: The ``--gpu`` option would be the right way to asks for GPUs in a slurm cluster. However, the cluster still has no notion of GPUs and therefore this option is still **not working**. The only way to ask for GPUs is to queue in the gpu1 or gpu2 queues and be sure to take a single node, which has 2 GPUS. Without this option it's still impossible, for example, to ask for a single GPU. I'll skip the documentation of the ``--gpu`` option for the time being just to avoid confusion, as it's not needed right now.
+.. data:: --gpus=<value>
+
+   Total number of GPUs requested for the job. Valid only on ``gpu1`` and ``gpu2``; you can ask at most 2 GPUs for each node you ask.
+
+   Example:
+
+   .. code-block:: bash
+
+      #SBATCH --gpus=2
+
+.. data:: --gpus-per-node=<value>
+
+   Number of GPUs per node. Valid only on ``gpu1`` and ``gpu2``; you can ask at most 2 GPUs.
+
+   Example:
+
+   .. code-block:: bash
+
+      #SBATCH --gpus-per-node=2
+
+.. data:: --gpus-per-task=<value>
+
+   Number of GPUs per MPI process; intended for use in conjunction with ``--ntasks``. Valid only on ``gpu1`` and ``gpu2``; you can ask at most 2 GPUs.
+
+   Example:
+
+   .. code-block:: bash
+
+      #SBATCH --gpus-per-task=2
 
 Memory Configuration
 """"""""""""""""""""
@@ -568,7 +594,7 @@ Memory (RAM) resources. **Always specify the amount of RAM you need, otherwise y
       
 .. data:: [optional] --mem-per-cpu=<value>
 
-   Amount of memory per CPU (thread). Refer to the table in :ref:`Partitions` for the limits.
+   Amount of memory per CPU (thread). Default value: :code:`512mb`; refer to the table in :ref:`Partitions` for the limits.
    Incompatible with ``--mem``.
 
    Example:
@@ -597,7 +623,7 @@ This section specifies the partition to use, the requested amount of time and th
 .. data:: --time=<value>
 
    The maximum time to be allocated for your job, in ``HH:MM:SS`` format.
-   Refer to the table in :ref:`Partitions` for the time limits.
+   Default value: :code:`01:00:00`; refer to the table in :ref:`Partitions` for the time limits.
 
    Example:
 
