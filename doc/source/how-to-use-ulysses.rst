@@ -428,7 +428,7 @@ In other words, if you augment you regular Bash script :code:`regular_script.sh`
 
 .. code-block:: console
 
-   $ batch job_script.sh
+   $ sbatch job_script.sh
 
 Yep, as simple as that. Of course, if you realize at the very last moment that you want to add some extra command line option, you can do that directly at the command-line level without necessarily adding it to the job script. However, if you have a stable collection of all the command-line options that you commonly use in a single place, i.e. at the beginning of a job script, you can then copy-paste that script every time you have to send a new calculation and just change the relevant bits.
 
