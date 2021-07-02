@@ -288,27 +288,33 @@ Serial Job Array
 Dependencies
 ------------
 
-SLURM allows the jobs dependency adding a simple flag to the `sbatch` command `sbatch --dependency=<type:job_id`
-
+SLURM allows the jobs dependency adding a simple flag to the `sbatch` command 
+.. code-block:: console
+   sbatch --dependency=<type:jobid[:jobid][,type:jobid[:jobid]]> ...
 
 .. table::
    :align: center
-   :widths: auto
-   
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-   | Command                          | Meaning                                                                                                                     |
-   +==================================+=============================================================================================================================+
-   | ``after:jobid[:jobid...]``       | job can begin after the specified jobs have started                                                                         |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-   | ``afterany:jobid[:jobid...]``    | job can begin after the specified jobs have terminated                                                                      |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-   | ``afternotok:jobid[:jobid...]``  | job can begin after the specified jobs have failed                                                                          |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-   | ``afterok:jobid[:jobid...]``     | job can begin after the specified jobs have run to completion with an exit code of zero (see the user guide for caveats).   |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-   | ``singleton``                    | jobs can begin execution after all previously launched jobs with the same name and user have ended.                         |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   :widths: 1 3
+
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | Command                                      | Meaning                                                                                                                     |
+   +==============================================+=============================================================================================================================+
+   | ``after:jobid``                              | job can begin after the specified jobs have started                                                                         |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterany:jobid``                           | job can begin after the specified jobs have terminated                                                                      |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afternotok:jobid``                         | job can begin after the specified jobs have failed                                                                          |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterok:jobid``                            | job can begin after the specified jobs have run to completion with an exit code of zero (see the user guide for caveats).   |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``singleton``                                | jobs can begin execution after all previously launched jobs with the same name and user have ended.                         |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 
 A command that I found usefull suppose you have ``n`` jobs that are dependent and for each ``i-th`` job you have a script called job_i.sh, then you can use the following command:
-.. code-block:: bash
-ID=($(sbatch job_0.sh )) ; for i in $(seq 1 4 ); do ID=($(sbatch --dependency=afterany:${ID[3]} job_$i.sh )); done
+
+.. code-block:: console
+   
+   ID=($(sbatch job_1.sh )) 
+   for i in $(seq 2 n ); do 
+      ID=($(sbatch --dependency=type:${ID[3]} job_$i.sh ))
+   done
