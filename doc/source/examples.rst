@@ -295,19 +295,19 @@ SLURM allows the jobs dependency adding a simple flag to the `sbatch` command `s
    :align: center
    :widths: auto
    
-   +----------------------------------+---------------------------------------------------------+
-   | Command                          | Meaning                                                 |
-   +==================================+=========================================================+
-   | ``after:jobid[:jobid...]``       | job can begin after the specified jobs have started     |
-   +----------------------------------+---------------------------------------------------------+
-   | ``afterany:jobid[:jobid...]``    | job can begin after the specified jobs have terminated  |
-   +----------------------------------+---------------------------------------------------------+
-   | ``afternotok:jobid[:jobid...]``  | job can begin after the specified jobs have failed      |
-   +----------------------------------+----------------------------------------------------------------------------------------------------------------------------+
-   | ``afterok:jobid[:jobid...]``     | job can begin after the specified jobs have run to completion with an exit code of zero (see the user guide for caveats).  |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | ``singleton``                    | jobs can begin execution after all previously launched jobs with the same name and user have ended. This is useful to collate results of a swarm or to send a notification at the end of a swarm.   |
-   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | Command                          | Meaning                                                                                                                     |
+   +==================================+=============================================================================================================================+
+   | ``after:jobid[:jobid...]``       | job can begin after the specified jobs have started                                                                         |
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterany:jobid[:jobid...]``    | job can begin after the specified jobs have terminated                                                                      |
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afternotok:jobid[:jobid...]``  | job can begin after the specified jobs have failed                                                                          |
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterok:jobid[:jobid...]``     | job can begin after the specified jobs have run to completion with an exit code of zero (see the user guide for caveats).   |
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``singleton``                    | jobs can begin execution after all previously launched jobs with the same name and user have ended.                         |
+   +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 
 A command that I found usefull suppose you have ``n`` jobs that are dependent and for each ``i-th`` job you have a script called job_i.sh, then you can use the following command:
 .. code-block:: bash
