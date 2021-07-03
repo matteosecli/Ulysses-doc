@@ -288,4 +288,33 @@ Serial Job Array
 Dependencies
 ------------
 
-.. warning:: **WORK IN PROGRESS!**
+SLURM allows the jobs dependency adding a simple flag to the `sbatch` command 
+.. code-block:: console
+   sbatch --dependency=<type:jobid[:jobid][,type:jobid[:jobid]]> ...
+
+.. table::
+   :align: center
+   :widths: 1 3
+
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | Command                                      | Meaning                                                                                                                     |
+   +==============================================+=============================================================================================================================+
+   | ``after:jobid``                              | job can begin after the specified jobs have started                                                                         |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterany:jobid``                           | job can begin after the specified jobs have terminated                                                                      |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afternotok:jobid``                         | job can begin after the specified jobs have failed                                                                          |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``afterok:jobid``                            | job can begin after the specified jobs have run to completion with an exit code of zero (see the user guide for caveats).   |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+   | ``singleton``                                | jobs can begin execution after all previously launched jobs with the same name and user have ended.                         |
+   +----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+
+A command that I found usefull suppose you have ``n`` jobs that are dependent and for each ``i-th`` job you have a script called job_i.sh, then you can use the following command:
+
+.. code-block:: console
+   
+   ID=($(sbatch job_1.sh )) 
+   for i in $(seq 2 n ); do 
+      ID=($(sbatch --dependency=type:${ID[3]} job_$i.sh ))
+   done
