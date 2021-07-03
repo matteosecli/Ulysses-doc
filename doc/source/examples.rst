@@ -288,7 +288,7 @@ Serial Job Array
 Dependencies
 ------------
 
-SLURM allows the jobs dependency adding a simple flag to the `sbatch` command
+SLURM allows the jobs dependency adding a simple flag to the ``sbatch`` command
 
 .. code-block:: console
 
@@ -312,7 +312,7 @@ SLURM allows the jobs dependency adding a simple flag to the `sbatch` command
    | ``singleton``        | jobs can begin execution after all previously launched jobs with the same name and user have ended.                       |
    +----------------------+---------------------------------------------------------------------------------------------------------------------------+
 
-A command that I found useful is the following. Suppose you have ``n`` jobs, each dependent from the previous one, and that for each ``i-th`` job you have a script called ``job_i.sh``. Then you can use the following command to queue them all at once:
+A command that I found useful is the following. Suppose you have ``n`` jobs, each dependent from the previous one, and that for each ``i``-th job you have a script called ``job_i.sh``. Then you can use the following command to queue them all at once:
 
 .. code-block:: bash
    
