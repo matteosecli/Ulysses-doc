@@ -286,7 +286,7 @@ Then reboot, open up a terminal again and install sshfs via:
    :alt: sshfs_macos_02
    :align: center
 
-.. warning:: The standard installation through ´´$ brew install sshfs`` appears to have been recently dropped from homebrew-core, due to macfuse going closed-source (and no, resorting to the old osxfuse does not solve the issue). The proposed solution here is a fix provided by the github user ´´gromgit``.
+.. warning:: The standard installation through ``$ brew install sshfs`` appears to have been recently dropped from homebrew-core, due to macfuse going closed-source (and no, resorting to the old osxfuse does not solve the issue). The proposed solution here is a fix provided by the github user ``gromgit``.
 
 You can finally mount Ulysses' storage, for example in :ref:``/Volumes/Ulysses\ SFTP\ Drive``, by executing in a terminal:
 
