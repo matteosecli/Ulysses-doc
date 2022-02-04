@@ -99,6 +99,62 @@ At this point, logging in to Ulysses becomes a matter of executing the command
    
 in a terminal (you might need to close and reopen the terminal, first).
 
+Port Forwarding (aka how to use Jupyter notebook/lab from the cluster)
+----------------------------------------------------------------------
+From Wikipedia "Port forwarding allows remote computers (for example, computers on the Internet) to connect to a specific computer or service within a private local-area network (LAN)."
+
+As hinted by the short definition above the port forwarding is a broad subject with many possible application, the one we will focus here is one I personally find usefull:
+using jupyter from the cluster, mainly the login node.
+The main idea is to choose a specific port, that now on we will name ``8888`` (note it is not a good choice for an actual port) during the connection and pass it to jupyter.
+It can be achieved in many ways for example:
+
+* by chosing the port in the ``ssh`` command line:
+
+   .. code-block:: console
+
+      $ ssh -L 8888:localhost:8888 username@frontend2.hpc.sissa.it
+
+   Once inside the cluster login node add this two options to the usual jupyter command: ``--no-browser``, ``--port=8888``.
+
+   .. code-block:: console
+
+      $ jupyter-notebook --no-browser --port=8888
+
+   A few line of text will appear that will tell you which url you have to copy and past in a browser to have access to the standar jupyter interface.
+   
+   Of course in  ``--port=8888`` the number of the port must match the one use for the forwarding.
+
+* The other method to select the port is more convenient (avoids having to put the ``-L`` option every time), and take advantage of the file ``~/.ssh/config`` mentioned above:
+
+   .. code-block:: console
+
+      Host sissacluster2
+         User username
+         HostName frontend2.hpc.sissa.it
+         IdentityFile ~/.ssh/id_rsa
+         ServerAliveInterval 120
+         ServerAliveCountMax 60
+         LocalForward 8888  localhost:8888
+
+   Then, in order to login, you will just need
+
+   .. code-block:: console
+
+        $ ssh sissacluster2
+
+   and you are connected to the right port and can use the jupyter command with the same option as above.
+   In this way you do not have to put the port number every time, just remember the port!
+
+One small note: if you open two (or more terminals) and in the first you connect to the cluster through the port ``8888`` the other terminals will find that port occupied and wont able to connect through it. This is true even if an other user is using the same port of the cluster.
+In those cases you will see a warning like:
+
+.. code-block:: console 
+
+   bind [127.0.0.1]:8888: Address already in use
+   channel_setup_fwd_listener_tcpip: cannot listen to port: 8888
+   Could not request local forwarding.
+
+
 Explore Files in a User-Friendly Way
 ------------------------------------
 
